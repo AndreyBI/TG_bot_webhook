@@ -3,6 +3,7 @@
 import logging
 import os
 from aiogram.dispatcher import Dispatcher
+from aiogram.dispatcher.webhook import SendMessage
 from aiogram.utils.executor import start_webhook
 from aiogram import Bot, types
 from telegram.ext import Updater
@@ -33,7 +34,7 @@ async def on_shutdown(dispatcher):
 
 @dp.message_handler()
 async def echo(message: types.Message):
-    await message.answer(message.text)
+    await SendMessage(message.chat.id, message.text)
 
 
 if __name__ == '__main__':
