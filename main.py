@@ -6,6 +6,7 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.dispatcher.webhook import SendMessage
 from aiogram.utils.executor import start_webhook
 from aiogram import Bot, types
+from telegram.ext import Updater
 
 TOKEN = os.getenv('BOT_TOKEN')
 bot = Bot(token=TOKEN)
@@ -38,12 +39,21 @@ async def echo(message: types.Message):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
-    start_webhook(
-        dispatcher=dp,
-        webhook_path=WEBHOOK_PATH,
-        skip_updates=True,
-        on_startup=on_startup,
-        on_shutdown=on_shutdown,
-        host=WEBAPP_HOST,
-        port=WEBAPP_PORT,
-    )
+    # start_webhook(
+    #     dispatcher=dp,
+    #     webhook_path=WEBHOOK_PATH,
+    #     skip_updates=True,
+    #     on_startup=on_startup,
+    #     on_shutdown=on_shutdown,
+    #     host=WEBAPP_HOST,
+    #     port=WEBAPP_PORT,
+    # )
+
+    PORT = int(os.environ.get('PORT', '80'))
+    updater = Updater(TOKEN)
+    # add handlers
+    updater.start_webhook(listen="0.0.0.0",
+                          port=PORT,
+                          url_path=TOKEN,
+                          webhook_url=f"https://{HEROKU_APP_NAME}.herokuapp.com/" + TOKEN)
+    updater.idle()
