@@ -34,12 +34,11 @@ async def on_shutdown(dispatcher):
 
 @dp.message_handler()
 async def echo(message: types.Message):
-    await SendMessage(message.chat.id, message.text)
+    return SendMessage(message.chat.id, message.text)
 
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
-    update = Updater(TOKEN)
     start_webhook(
         dispatcher=dp,
         webhook_path=WEBHOOK_PATH,
@@ -49,4 +48,3 @@ if __name__ == '__main__':
         host=WEBAPP_HOST,
         port=WEBAPP_PORT,
     )
-    update.idle()
