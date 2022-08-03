@@ -11,7 +11,7 @@ TOKEN = os.getenv('Token')
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
-HEROKU_APP_NAME = os.getenv('Name')
+HEROKU_APP_NAME = os.getenv('Name_App')
 
 # webhook settings
 WEBHOOK_HOST = f'https://{HEROKU_APP_NAME}.herokuapp.com'
