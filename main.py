@@ -15,7 +15,7 @@ HEROKU_APP_NAME = os.getenv('HEROKU_APP_NAME')
 
 # webhook settings
 WEBHOOK_HOST = f'https://{HEROKU_APP_NAME}.herokuapp.com'
-WEBHOOK_PATH = f'/{TOKEN}'
+WEBHOOK_PATH = f'/webhook/{TOKEN}'
 WEBHOOK_URL = f'{WEBHOOK_HOST}{WEBHOOK_PATH}'
 
 # webserver settings
@@ -36,7 +36,7 @@ async def echo(message: types.Message):
     await message.answer(message.text)
 
 
- if __name__ == '__main__':
+if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     start_webhook(
         dispatcher=dp,
