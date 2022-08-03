@@ -5,7 +5,7 @@ import os
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils.executor import start_webhook
 from aiogram import Bot, types
-
+from telegram.ext import Updater
 
 TOKEN = os.getenv('BOT_TOKEN')
 bot = Bot(token=TOKEN)
@@ -38,6 +38,7 @@ async def echo(message: types.Message):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
+    update = Updater(TOKEN)
     start_webhook(
         dispatcher=dp,
         webhook_path=WEBHOOK_PATH,
@@ -47,3 +48,4 @@ if __name__ == '__main__':
         host=WEBAPP_HOST,
         port=WEBAPP_PORT,
     )
+    update.idle()
